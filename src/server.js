@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
+
 const routes = require('./routes');
 
 const app = express();
@@ -23,6 +25,8 @@ try {
 } catch (e) {
     console.log(e);
 }
+
+app.use('/files', express.static(path.join(__dirname, '..', 'files')));
 
 app.use(routes);
 
