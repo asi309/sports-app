@@ -7,12 +7,7 @@ module.exports = {
         try {
             const event = await Event.findById(eventId);
 
-            if (event) {
                 return res.json(event);
-            }
-            return res.status(404).json({
-                message: 'Event not found'
-            })
         } catch (error) {
             
             return res.status(400).json({

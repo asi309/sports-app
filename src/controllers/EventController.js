@@ -24,6 +24,10 @@ module.exports = {
             user: user_id
         })
 
+        await event
+                .populate('user', '-password')
+                .execPopulate();
+
         return res.json(event)
     },
 

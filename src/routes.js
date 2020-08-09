@@ -4,6 +4,7 @@ const multer = require('multer');
 const DashboardController = require('./controllers/DashboardController');
 const EventController = require('./controllers/EventController');
 const LoginController = require('./controllers/LoginController');
+const RegistrationController = require('./controllers/RegistrationController');
 const UserController = require('./controllers/UserController');
 const uploadConfig = require('./config/upload');
 
@@ -26,7 +27,11 @@ routes.post('/event', upload.single("thumbnail"), EventController.createEvent);
 routes.delete('/event/:eventId', EventController.deleteEvent);
 
 //Login
-routes.post('/login', LoginController.store)
+routes.post('/login', LoginController.store);
+
+//Registration
+routes.post('/registration/:eventId', RegistrationController.create);
+routes.get('/registration/:registrationId', RegistrationController.getRegistration);
 
 //Users
 routes.post('/user/register', UserController.createUser);
