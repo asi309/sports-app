@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 module.exports = {
     async createEvent (req, res) {
-        const { title, description, price } = req.body;
+        const { title, description, price, sport } = req.body;
         const { filename } = req.file;
         const { user_id } = req.headers;
         
@@ -20,25 +20,23 @@ module.exports = {
             description,
             price,
             thumbnail: filename,
+            sport,
             user: user_id
         })
 
         return res.json(event)
     },
 
-    async getEventById (req, res) {
+    async deleteEvent (req, res) {
         const { eventId } = req.params;
+        console.log(req.params)
         try {
-            const event = await Event.findById(eventId);
-
-            return res.json(event);
+            await Event.findByIdAndDelete(eventId);
+            return res.status(204).send();
         } catch (error) {
-            
             return res.status(400).json({
-                message: "Event with id doesnot exist"
-            });
+                message: 'Event with id doesnot exist'
+            })
         }
-        
-
     }
 }
