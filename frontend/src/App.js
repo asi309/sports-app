@@ -1,18 +1,15 @@
 import React from 'react';
+import { Container } from 'reactstrap';
+
+import Routes from './routes';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn MERN
-        </a>
-    </div>
+    <Container>
+      <h1>Sport Management App</h1>
+      <Routes />
+    </Container>
   );
 }
 
