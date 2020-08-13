@@ -1,18 +1,20 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import DashboardComponent from './components/DashboardComponent';
-import LoginComponent from './components/LoginComponent';
-import RegisterUserComponent from './components/RegisterUserComponent';
+import Dashboard from './pages/Dashboard/';
+import Events from './pages/Events/';
+import Login from './pages/Login/';
+import RegisterUser from './pages/RegisterUser/';
 
 
 export default function Routes () {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={ LoginComponent } />
-                <Route path="/dashboard" component={ DashboardComponent } />
-                <Route path="/user/register" component={ RegisterUserComponent } />
+                <Route path="/" exact component={ Login } />
+                <Route path="/dashboard" component={ Dashboard } />
+                <Route path="/events" component={ Events } />
+                <Route path="/user/register" component={ RegisterUser } />
             </Switch>
         </BrowserRouter>
     );

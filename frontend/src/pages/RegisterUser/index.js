@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Button, Container, Form, FormGroup, Label, Input } from 'reactstrap';
 
-import api from '../services/api';
+import api from '../../services/api';
 
-export default function RegisterUserComponent({ history }) {
+export default function RegisterUser ({ history }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -39,7 +39,9 @@ export default function RegisterUserComponent({ history }) {
                             name="firstName" 
                             id="firstName" 
                             onChange = { (e) => setFirstName (e.target.value) }
-                            placeholder="Your First Name" />
+                            placeholder="Your First Name"
+                            value={ firstName }
+                        />
                 </FormGroup>
                 <FormGroup>
                     <Label for="lastName" className="mr-sm-2">Last Name</Label>
@@ -48,7 +50,9 @@ export default function RegisterUserComponent({ history }) {
                             name="lastName" 
                             id="lastName" 
                             onChange = { (e) => setLastName (e.target.value) }
-                            placeholder="Your Last Name" />
+                            placeholder="Your Last Name"
+                            value={ lastName }
+                        />
                 </FormGroup>
                 <FormGroup>
                     <Label for="email" className="mr-sm-2">Email</Label>
@@ -57,7 +61,9 @@ export default function RegisterUserComponent({ history }) {
                         name="email" 
                         id="email" 
                         onChange = { (e) => setEmail (e.target.value) }
-                        placeholder="johndoe@example.com" />
+                        placeholder="johndoe@example.com"
+                        value={ email }
+                    />
                 </FormGroup>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                     <Label for="password" className="mr-sm-2">Password</Label>
