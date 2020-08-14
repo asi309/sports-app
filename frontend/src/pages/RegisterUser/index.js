@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Container, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import api from '../../services/api';
 
@@ -75,7 +75,7 @@ export default function RegisterUser ({ history }) {
                         placeholder="password" />
                 </FormGroup>
                 <br />
-                <Button color="primary">Signup</Button>
+                <button className="btn btn-submit">Signup</button>
             </Form>
         </Container>
     );

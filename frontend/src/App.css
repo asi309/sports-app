@@ -27,7 +27,7 @@ button {
 }
 
 .container {
-    margin: 80px auto;
+    margin: 70px auto;
     max-width: 450px;
     width: 100%;
     display: flex;
@@ -51,3 +51,73 @@ button {
 .content-box h2 {
     margin-bottom: 20px;
 }
+
+.content-box .btn {
+    border: 0;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 0 20px;
+    font-weight: 700;
+    height: 40px;
+    width: 100%;
+}
+
+.content-box .btn-submit {
+    background: #a13d15;
+    color: #fff;
+    opacity: 0.85;
+}
+
+.content-box .btn-submit:hover {
+    background: #b74518;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* .content-box .btn-submit:focus-within {
+    background: #b74518;
+    cursor: pointer;
+    border: 0;
+}
+
+.content-box .btn-submit:focus {
+    background: #b74518;
+    cursor: pointer;
+    border: 0;
+    box-shadow: none;
+} */
+
+.content-box .btn-submit:active {
+    background: #e3561e;
+}
+
+.content-box .btn-register {
+    background: #124b80;
+    color: #fff;
+}
+
+.content-box .btn-register:hover {
+    background: #165d9e;
+    color: #fff;
+    cursor: pointer;
+}
+
+.content-box .btn-register:active {
+    background: #1f81dc;
+}
+
+/* .content-box .btn-register:focus-within {
+    background: #165d9e;
+    cursor: pointer;
+    border: 0;
+}
+
+.content-box .btn-register:focus {
+    background: #165d9e;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.content-box .btn-secondary {
+    display: inherit;
+} */
