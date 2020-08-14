@@ -12,7 +12,8 @@ export default function Events () {
     const [price, setPrice] = useState(0);
     const [thumbnail, setThumbnail] = useState(null);
     const [date, setDate] = useState('');
-    const [errorMessage, setErrorMessage] = useState(false);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const preview = useMemo(() => {
         return thumbnail ? URL.createObjectURL(thumbnail) : null;
@@ -42,12 +43,12 @@ export default function Events () {
             ) {
                 await api.post('/event', eventData, { headers: { user_id }})
             } else {
-                setErrorMessage(true);
+                setError(true);
+                setErrorMessage('Missing required information');
                 setTimeout(() => {
-                    setErrorMessage(false);
-                }, 3000)
-
-                console.log('Missing required data');
+                    setError(false);
+                    setErrorMessage('');
+                }, 5000);
             }
         } catch (error) {
             console.log(error)
@@ -131,8 +132,8 @@ export default function Events () {
                 <br />
                 <Button color="primary">Create Event</Button>
             </Form>
-            { errorMessage ? (
-                <Alert className="event-validation" color="danger">Missing required information</Alert>
+            { error ? (
+                <Alert className="event-validation" color="danger">{ errorMessage }</Alert>
             ) : '' }
         </Container>
     )

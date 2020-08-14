@@ -8,7 +8,9 @@ function App() {
   return (
     <Container>
       <h1>Sport Management App</h1>
-      <Routes />
+      <div className="content-box">
+        <Routes />
+      </div>
     </Container>
   );
 }
