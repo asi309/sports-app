@@ -24,8 +24,8 @@ module.exports = {
                 });
             }
 
-            return response.status(400).json({
-                message: 'email already in use'
+            return response.status(200).json({
+                message: 'Email already in use'
             })
 
         } catch (error) {

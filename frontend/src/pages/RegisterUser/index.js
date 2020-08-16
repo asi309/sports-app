@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Alert, Container, Form, FormGroup, Input } from 'reactstrap';
 
 import api from '../../services/api';
 
@@ -8,21 +8,44 @@ export default function RegisterUser ({ history }) {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
+    const [error, setError] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await api.post('/user/register', {firstName, lastName, email, password});
-            const userId = response.data._id || false;
+            if (
+                email !== '' &&
+                password != '' &&
+                firstName != '' &&
+                lastName != ''
+               ) {
+
+                    const response = await api.post('/user/register', {firstName, lastName, email, password});
+                    const userId = response.data._id || false;
+                    
+                    if (userId) {
+                        localStorage.setItem('userId', userId);
+                        history.push('/dashboard');
+                    } else {
+                        const { message } = response.data;
+                        setError(true);
+                        setErrorMessage(message);
+                        setTimeout(() => {
+                            setError(false);
+                            setErrorMessage('');
+                        }, 5000);
+                    }
+               } else {
+                    setError(true);
+                    setErrorMessage(`Required field missing! Fill all the fields to register`);
+                    setTimeout(() => {
+                        setError(false);
+                        setErrorMessage('');
+                    }, 5000);
+               }
     
-            if (userId) {
-                localStorage.setItem('userId', userId);
-                history.push('/dashboard');
-            } else {
-                const { message } = response.data;
-                console.log(message);
-            }
         } catch (error) {
             console.log(`Request failed - ${error}`)
         }
@@ -32,51 +55,56 @@ export default function RegisterUser ({ history }) {
         <Container>
             <h2>Signup</h2>
             <Form onSubmit={ handleSubmit }>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Label for="firstName" className="mr-sm-2">First Name</Label>
+                <div className="input-group">
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                            <Input
+                                type="text" 
+                                name="firstName" 
+                                id="firstName" 
+                                onChange = { (e) => setFirstName (e.target.value) }
+                                placeholder="Your First Name"
+                                value={ firstName }
+                            />
+                    </FormGroup>
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                            <Input
+                                type="text" 
+                                name="lastName" 
+                                id="lastName" 
+                                onChange = { (e) => setLastName (e.target.value) }
+                                placeholder="Your Last Name"
+                                value={ lastName }
+                            />
+                    </FormGroup>
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                         <Input
-                            type="text" 
-                            name="firstName" 
-                            id="firstName" 
-                            onChange = { (e) => setFirstName (e.target.value) }
-                            placeholder="Your First Name"
-                            value={ firstName }
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            onChange = { (e) => setEmail (e.target.value) }
+                            placeholder="Enter email"
+                            value={ email }
                         />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="lastName" className="mr-sm-2">Last Name</Label>
+                    </FormGroup>
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                         <Input
-                            type="text" 
-                            name="lastName" 
-                            id="lastName" 
-                            onChange = { (e) => setLastName (e.target.value) }
-                            placeholder="Your Last Name"
-                            value={ lastName }
-                        />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="email" className="mr-sm-2">Email</Label>
-                    <Input
-                        type="email" 
-                        name="email" 
-                        id="email" 
-                        onChange = { (e) => setEmail (e.target.value) }
-                        placeholder="johndoe@example.com"
-                        value={ email }
-                    />
-                </FormGroup>
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            onChange = { (e) => setPassword (e.target.value) }
+                            placeholder="Choose a password" />
+                    </FormGroup>
+                </div>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Label for="password" className="mr-sm-2">Password</Label>
-                    <Input
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        onChange = { (e) => setPassword (e.target.value) }
-                        placeholder="password" />
+                    <button className="btn btn-submit">Signup</button>
+                    <button className="btn btn-secondary" onClick={ () => history.push('/login')}>
+                        Login instead?
+                    </button>
                 </FormGroup>
-                <br />
-                <button className="btn btn-submit">Signup</button>
             </Form>
+            { error ? (
+                <Alert className="event-validation" color="danger">{ errorMessage }</Alert>
+            ) : '' }
         </Container>
     );
 }

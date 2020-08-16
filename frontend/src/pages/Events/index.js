@@ -129,8 +129,9 @@ export default function Events () {
                         value={ date }
                     />
                 </FormGroup>
-                <br />
-                <Button color="primary">Create Event</Button>
+                <FormGroup>
+                    <button className="btn btn-submit">Create Event</button>
+                </FormGroup>
             </Form>
             { error ? (
                 <Alert className="event-validation" color="danger">{ errorMessage }</Alert>

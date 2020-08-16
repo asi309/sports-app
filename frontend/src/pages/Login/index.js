@@ -37,29 +37,30 @@ export default function Login ({ history }) {
         <Container>
             <h2>Login</h2>
             <Form onSubmit={ handleSubmit }>
+                <div className="input-group">
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                        <Input
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            onChange = { (e) => setEmail (e.target.value) }
+                            placeholder="Enter email" />
+                    </FormGroup>
+                    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                        <Input
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            onChange = { (e) => setPassword (e.target.value) }
+                            placeholder="Enter password" />
+                    </FormGroup>
+                </div>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Label for="email" className="mr-sm-2">Email</Label>
-                    <Input
-                        type="email" 
-                        name="email" 
-                        id="email" 
-                        onChange = { (e) => setEmail (e.target.value) }
-                        placeholder="johndoe@example.com" />
+                    <button className="btn btn-submit">Login</button>
+                    <button className="btn btn-secondary" onClick={ () => history.push('/user/register') }>
+                        Register
+                    </button>
                 </FormGroup>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Label for="password" className="mr-sm-2">Password</Label>
-                    <Input
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        onChange = { (e) => setPassword (e.target.value) }
-                        placeholder="password" />
-                </FormGroup>
-                <br />
-                <button className="btn btn-submit">Submit</button>
-                <button className="btn btn-register" onClick={ () => history.push('/user/register') }>
-                    Register
-                </button>
             </Form>
             { error ? (
                 <Alert className="event-validation" color="danger">{ errorMessage }</Alert>
