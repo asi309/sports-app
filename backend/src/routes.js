@@ -16,11 +16,10 @@ const upload = multer(uploadConfig);
 
 routes.get('/', (request, response) => {
     response.send('hello from express');
-    
-    
-    //Dashboard
-    routes.get('/dashboard/:sport', DashboardController.getAllEvents);
 });
+
+//Dashboard
+routes.get('/dashboard/:sport', DashboardController.getAllEvents);
 routes.get('/dashboard', DashboardController.getAllEvents);
 routes.get('/event/:eventId', DashboardController.getEventById);
 

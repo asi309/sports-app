@@ -68,13 +68,13 @@ button {
     width: 100%;
 }
 
-.content-box .btn-submit {
+.content-box .submit-btn {
     background: #a13d15;
     color: #fff;
     opacity: 0.85;
 }
 
-.content-box .btn-submit:hover {
+.content-box .submit-btn:hover {
     background: #b74518;
     color: #fff;
     cursor: pointer;
@@ -93,22 +93,22 @@ button {
     box-shadow: none;
 } */
 
-.content-box .btn-submit:active {
+.content-box .submit-btn:active {
     background: #e3561e;
 }
 
-.content-box .btn-secondary {
+.content-box .secondary-btn {
     background: #124b80;
     color: #fff;
 }
 
-.content-box .btn-secondary:hover {
+.content-box .secondary-btn:hover {
     background: #165d9e;
     color: #fff;
     cursor: pointer;
 }
 
-.content-box .btn-secondary:active {
+.content-box .secondary-btn:active {
     background: #1f81dc;
 }
 

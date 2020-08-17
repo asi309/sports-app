@@ -27,7 +27,7 @@ export default function RegisterUser ({ history }) {
                     
                     if (userId) {
                         localStorage.setItem('userId', userId);
-                        history.push('/dashboard');
+                        history.push('/');
                     } else {
                         const { message } = response.data;
                         setError(true);
@@ -96,8 +96,8 @@ export default function RegisterUser ({ history }) {
                     </FormGroup>
                 </div>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <button className="btn btn-submit">Signup</button>
-                    <button className="btn btn-secondary" onClick={ () => history.push('/login')}>
+                    <button className="btn submit-btn">Signup</button>
+                    <button className="btn secondary-btn" onClick={ () => history.push('/login')}>
                         Login instead?
                     </button>
                 </FormGroup>

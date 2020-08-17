@@ -18,7 +18,7 @@ export default function Login ({ history }) {
         try {
             if (userId) {
                 localStorage.setItem('userId', userId);
-                history.push('/dashboard');
+                history.push('/');
             } else {
                 const { message } = response.data;
                 setError(true);
@@ -29,7 +29,8 @@ export default function Login ({ history }) {
                 }, 5000);
             }
         } catch (error) {
-            console.log(error);
+            setError(true);
+            setErrorMessage('ERROR: The server cannot process the request');
         }
     }
 
@@ -56,8 +57,8 @@ export default function Login ({ history }) {
                     </FormGroup>
                 </div>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <button className="btn btn-submit">Login</button>
-                    <button className="btn btn-secondary" onClick={ () => history.push('/user/register') }>
+                    <button className="btn submit-btn">Login</button>
+                    <button className="btn secondary-btn" onClick={ () => history.push('/user/register') }>
                         Register
                     </button>
                 </FormGroup>
