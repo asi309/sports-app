@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 module.exports = {
     async createEvent (req, res) {
-        const { title, description, price, sport } = req.body;
+        const { title, description, price, sport, date } = req.body;
         const { filename } = req.file;
         const { user_id } = req.headers;
         
@@ -21,6 +21,7 @@ module.exports = {
             price,
             thumbnail: filename,
             sport,
+            date,
             user: user_id
         })
 
@@ -28,7 +29,10 @@ module.exports = {
                 .populate('user', '-password')
                 .execPopulate();
 
-        return res.json(event)
+        return res.json({
+            message: 'Event created successfully',
+            event
+        });
     },
 
     async deleteEvent (req, res) {

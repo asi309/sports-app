@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Container, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Alert, Container, Form, FormGroup, Input } from 'reactstrap';
 
 import api from '../../services/api';
 

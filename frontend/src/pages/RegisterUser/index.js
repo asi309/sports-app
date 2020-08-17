@@ -17,9 +17,9 @@ export default function RegisterUser ({ history }) {
         try {
             if (
                 email !== '' &&
-                password != '' &&
-                firstName != '' &&
-                lastName != ''
+                password !== '' &&
+                firstName !== '' &&
+                lastName !== ''
                ) {
 
                     const response = await api.post('/user/register', {firstName, lastName, email, password});
