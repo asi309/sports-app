@@ -61,17 +61,17 @@ button {
 .content-box .btn {
     border: 0;
     border-radius: 4px;
-    margin: 10px 0 7px 0;
     padding: 0 20px;
     font-weight: 700;
     height: 40px;
-    width: 100%;
 }
 
 .content-box .submit-btn {
     background: #a13d15;
     color: #fff;
+    margin: 10px 0 7px 0;
     opacity: 0.85;
+    width: 100%;
 }
 
 .content-box .submit-btn:hover {
@@ -100,6 +100,8 @@ button {
 .content-box .secondary-btn {
     background: #124b80;
     color: #fff;
+    margin: 10px 0 7px 0;
+    width: 100%;
 }
 
 .content-box .secondary-btn:hover {

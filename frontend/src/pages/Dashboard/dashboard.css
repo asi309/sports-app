@@ -32,6 +32,21 @@ ul.events-list li span {
     word-break: break-all;
 }
 
+ul.events-list li div {
+    display: none;
+}
+
+ul.events-list li:hover div {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+div.filter-panel {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
 @media (max-width: 640px) {
     ul.events-list {
         grid-template-columns: 1fr;

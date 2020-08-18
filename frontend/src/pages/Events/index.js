@@ -56,6 +56,7 @@ export default function Events ({ history }) {
                 setTimeout(() => {
                     setSuccess(false);
                     setSuccessMessage('');
+                    history.push('/');
                 }, 5000);
             } else {
                 setError(true);

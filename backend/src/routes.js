@@ -21,6 +21,7 @@ routes.get('/', (request, response) => {
 //Dashboard
 routes.get('/dashboard/:sport', DashboardController.getAllEvents);
 routes.get('/dashboard', DashboardController.getAllEvents);
+routes.get('/user/events', DashboardController.getEventsByUser);
 routes.get('/event/:eventId', DashboardController.getEventById);
 
 //Events
