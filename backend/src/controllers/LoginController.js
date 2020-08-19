@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 module.exports = {
@@ -27,7 +28,12 @@ module.exports = {
                     firstName: user.firstName,
                     lastName: user.lastName
                 }
-                return res.json(userResponse)
+
+                return jwt.sign({ user: userResponse }, 'secret', (error, token) => res.json({
+                    user: token,
+                    user_id: userResponse._id
+                }))
+                // return res.json(userResponse)
             } else {
                 return res.status(200).json({
                     message: "Email or Password doesnot match. Do you want to register instead?"

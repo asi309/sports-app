@@ -14,6 +14,7 @@ export default function Dashboard ({ history }) {
     const [errorMessage, setErrorMessage] = useState('');
     const [success, setSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+    const user = localStorage.getItem('user');
     const userId = localStorage.getItem('userId');
     
     useEffect(() => {
@@ -27,21 +28,29 @@ export default function Dashboard ({ history }) {
     }
 
     const myEventsHandler = async () => {
-        setRSelected('myEvents');
-        const response = await api.get('/user/events', { headers: { user_id: userId } });
-        setEvents(response.data);
+        try {
+            setRSelected('myEvents');
+            const response = await api.get('/user/events', { headers: { user } });
+            setEvents(response.data.events);
+        } catch (error) {
+            history.push('/login');
+        }
     }
 
     const getEvents = async (filter) => {
-        const url = filter ? `/dashboard/${filter}` : '/dashboard';
-        const response = await api.get(url, { headers: {userId} });
-
-        setEvents(response.data);
+        try{
+            const url = filter ? `/dashboard/${filter}` : '/dashboard';
+            const response = await api.get(url, { headers: {user} });
+    
+            setEvents(response.data.events);
+        } catch (error) {
+            history.push('/login');
+        }
     }
 
     const deleteEventHandler = async (eventId) => {
         try {
-            await api.delete(`/event/${eventId}`);
+            await api.delete(`/event/${eventId}`, { headers: {user} });
             setSuccess(true);
             setSuccessMessage('Deleted event successfully');
             setTimeout(() => {

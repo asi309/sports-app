@@ -23,10 +23,13 @@ export default function RegisterUser ({ history }) {
                ) {
 
                     const response = await api.post('/user/register', {firstName, lastName, email, password});
-                    const userId = response.data._id || false;
+                    const user = response.data.user || false;
+                    const userId = response.data.user_id || false;
                     
-                    if (userId) {
+                    if (user && userId) {
+                        localStorage.setItem('user', user);
                         localStorage.setItem('userId', userId);
+                        console.log(user, userId);
                         history.push('/');
                     } else {
                         const { message } = response.data;

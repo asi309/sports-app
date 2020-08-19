@@ -1,5 +1,6 @@
-const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
 module.exports = {
     async createUser(request, response) {
@@ -16,12 +17,22 @@ module.exports = {
                     email,
                     password: hashedPassword
                 });
-                return response.json({
-                    _id: user._id,
-                    email: user.email,
-                    firstName: user.firstName,
-                    lastName: user.lastName
-                });
+
+                return jwt.sign({ user: {
+                        _id: user._id,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName
+                } }, 'secret', (error, token) => response.json({
+                    user: token,
+                    user_id: user._id
+                }));
+                // return response.json({
+                //     _id: user._id,
+                //     email: user.email,
+                //     firstName: user.firstName,
+                //     lastName: user.lastName
+                // });
             }
 
             return response.status(200).json({

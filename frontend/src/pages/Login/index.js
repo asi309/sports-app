@@ -13,10 +13,12 @@ export default function Login ({ history }) {
         e.preventDefault();
 
         const response = await api.post('/login', { email, password });
-        const userId = response.data._id || false;
+        const userId = response.data.user_id || false;
+        const user = response.data.user || false
 
         try {
-            if (userId) {
+            if (user && userId) {
+                localStorage.setItem('user', user);
                 localStorage.setItem('userId', userId);
                 history.push('/');
             } else {

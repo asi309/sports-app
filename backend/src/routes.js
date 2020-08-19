@@ -9,6 +9,7 @@ const RegistrationController = require('./controllers/RegistrationController');
 const RejectionController = require('./controllers/RejectionController');
 const UserController = require('./controllers/UserController');
 const uploadConfig = require('./config/upload');
+const verifyToken = require('./config/verifyToken');
 
 const routes = express.Router();
 const upload = multer(uploadConfig);
@@ -19,14 +20,14 @@ routes.get('/', (request, response) => {
 });
 
 //Dashboard
-routes.get('/dashboard/:sport', DashboardController.getAllEvents);
-routes.get('/dashboard', DashboardController.getAllEvents);
-routes.get('/user/events', DashboardController.getEventsByUser);
-routes.get('/event/:eventId', DashboardController.getEventById);
+routes.get('/dashboard/:sport', verifyToken, DashboardController.getAllEvents);
+routes.get('/dashboard', verifyToken, DashboardController.getAllEvents);
+routes.get('/user/events', verifyToken, DashboardController.getEventsByUser);
+routes.get('/event/:eventId', verifyToken, DashboardController.getEventById);
 
 //Events
-routes.post('/event', upload.single("thumbnail"), EventController.createEvent);
-routes.delete('/event/:eventId', EventController.deleteEvent);
+routes.post('/event', verifyToken, upload.single("thumbnail"), EventController.createEvent);
+routes.delete('/event/:eventId', verifyToken, EventController.deleteEvent);
 
 //Login
 routes.post('/login', LoginController.store);
