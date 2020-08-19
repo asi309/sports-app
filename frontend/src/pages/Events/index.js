@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { 
     Alert, Button, ButtonDropdown, DropdownToggle, 
     DropdownMenu, DropdownItem, Container, 
@@ -13,7 +13,7 @@ export default function Events ({ history }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [sport, setSport] = useState('Sport');
-    const [price, setPrice] = useState();
+    const [price, setPrice] = useState('');
     const [thumbnail, setThumbnail] = useState(null);
     const [date, setDate] = useState('');
     const [error, setError] = useState(false);
@@ -21,8 +21,15 @@ export default function Events ({ history }) {
     const [success, setSuccess] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
     const [dropdownOpen, setOpen] = useState(false);
+    const user = localStorage.getItem('user');
 
     const toggle = () => setOpen(!dropdownOpen);
+
+    useEffect(() => {
+        if (!user) {
+            history.push('/login')
+        }
+    }, []);
 
     const preview = useMemo(() => {
         return thumbnail ? URL.createObjectURL(thumbnail) : null;
@@ -31,7 +38,7 @@ export default function Events ({ history }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const user_id = localStorage.getItem('userId');
+        
         const eventData = new FormData();
 
         eventData.append('thumbnail', thumbnail);
@@ -50,14 +57,14 @@ export default function Events ({ history }) {
                 price !== 0 &&
                 date !== ''
             ) {
-                const response = await api.post('/event', eventData, { headers: { user_id }})
+                const response = await api.post('/event', eventData, { headers: { user }})
                 setSuccess(true);
                 setSuccessMessage(response.data.message);
                 setTimeout(() => {
                     setSuccess(false);
                     setSuccessMessage('');
                     history.push('/');
-                }, 5000);
+                }, 3000);
             } else {
                 setError(true);
                 setErrorMessage('Missing required information');
@@ -115,7 +122,7 @@ export default function Events ({ history }) {
                             type="text"
                             name="price"
                             id="price"
-                            onChange={ e => setPrice(e.target.value) }
+                            onChange={ e => setPrice(e.target.value.replace(/\D/g, '')) }
                             placeholder="Price for your event - ($0.00)"
                             value={ price }
                         />
