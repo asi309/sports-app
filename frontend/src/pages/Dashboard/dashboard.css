@@ -47,6 +47,29 @@ div.filter-panel {
     margin-bottom: 50px;
 }
 
+ul.notifications {
+    list-style: none;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+}
+
+ul.notifications li {
+    padding-top: 10px;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+ul.notifications li div {
+    display: flex;
+    justify-content: space-between;
+}
+
+ul.notifications li div p {
+    margin-top: 8px;
+}
+
 @media (max-width: 640px) {
     ul.events-list {
         grid-template-columns: 1fr;

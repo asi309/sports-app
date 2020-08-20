@@ -1,24 +1,35 @@
+const jwt = require('jsonwebtoken');
 const Registration = require('../models/Registration');
 
 
 module.exports = {
-    async create (req, res) {
-        const { user_id } = req.headers;
-        const { eventId } = req.params;
-        const { date } = req.body;
+    create (req, res) {
+        jwt.verify(req.token, 'secret', async (error, authData) => {
+            if (error) {
+                res.status(401).send();
+            } else {
+                const { user } = authData;
+                const { eventId } = req.params;
+        
+                const registration = await Registration.create ({
+                    user: user._id,
+                    event: eventId
+                })
+        
+                await registration
+                    .populate('user', '-password')
+                    .populate('event')
+                    .execPopulate();
+                    
+                const ownerSocket = req.connectedUsers[registration.event.user];
 
-        const registration = await Registration.create ({
-            user: user_id,
-            event: eventId,
-            date
+                if (ownerSocket) {
+                    req.io.to(ownerSocket).emit('registration_req', registration);
+                }
+        
+                return res.json(registration);
+            }
         })
-
-        await registration
-            .populate('user', '-password')
-            .populate('event')
-            .execPopulate();
-
-        return res.json(registration);
     },
 
     async getRegistration (req, res) {

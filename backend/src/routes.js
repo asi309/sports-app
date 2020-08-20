@@ -33,7 +33,7 @@ routes.delete('/event/:eventId', verifyToken, EventController.deleteEvent);
 routes.post('/login', LoginController.store);
 
 //Registration
-routes.post('/registration/:eventId', RegistrationController.create);
+routes.post('/registration/:eventId', verifyToken, RegistrationController.create);
 routes.get('/registration/:registrationId', RegistrationController.getRegistration);
 
 //Approvals
