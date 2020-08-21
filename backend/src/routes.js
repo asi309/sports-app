@@ -37,9 +37,9 @@ routes.post('/registration/:eventId', verifyToken, RegistrationController.create
 routes.get('/registration/:registrationId', RegistrationController.getRegistration);
 
 //Approvals
-routes.post('/registration/:registrationId/approval', ApprovalController.approval);
+routes.post('/registration/:registrationId/approval', verifyToken, ApprovalController.approval);
 //Rejections
-routes.post('/registration/:registrationId/rejection', RejectionController.rejection);
+routes.post('/registration/:registrationId/rejection', verifyToken, RejectionController.rejection);
 
 //Users
 routes.post('/user/register', UserController.createUser);

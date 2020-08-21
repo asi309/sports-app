@@ -13,6 +13,7 @@ export default function Dashboard ({ history }) {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [messageHandler, setMessageHandler] = useState('');
+    const [requestMessageHandler, setRequestMessageHandler] = useState('');
     const [eventRequest, setEventRequest] = useState([]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -99,12 +100,56 @@ export default function Dashboard ({ history }) {
         }
     }
 
+    const acceptEventHandler = async (registrationId) => {
+        try{
+            const response = await api.post(`/registration/${registrationId}/approval`, {}, { headers: { user } });
+            setSuccess(true);
+            setRequestMessageHandler('Request Accepted');
+            removeNotification(registrationId);
+            setTimeout(() => {
+                setSuccess(false);
+                setRequestMessageHandler('');
+            }, 3000);
+        } catch (error) {
+            setError(true);
+            setRequestMessageHandler('Cannot perform the selected action');
+            setTimeout(() => {
+                setError(false);
+                setRequestMessageHandler('');
+            }, 3000);
+        }
+    }
+
+    const rejectEventHandler = async (registrationId) => {
+        try {
+            await api.post(`registration/${registrationId}/rejection`, {}, { headers: { user } });
+            setSuccess(true);
+            setRequestMessageHandler('Request Rejected');
+            removeNotification(registrationId);
+            setTimeout(() => {
+                setSuccess(false);
+                setRequestMessageHandler('');
+            }, 3000);
+        } catch (error) {
+            setError(true);
+            setRequestMessageHandler('Cannot perform the selected action');
+            setTimeout(() => {
+                setError(false);
+                setRequestMessageHandler('');
+            }, 3000);
+        }
+    }
+
+    const removeNotification = (registrationId) => {
+        const newEvents = eventRequest.filter(request => registrationId !== request._id);
+        setEventRequest(newEvents);
+    }
+
     return (
         <>
             <ul className='notifications'>
                 {
                     eventRequest.map(request => {
-                        console.log(request);
                         return (
                             <li key={request._id}>
                                 <div>
@@ -115,13 +160,13 @@ export default function Dashboard ({ history }) {
                                     <ButtonGroup>
                                         <Button
                                             color='secondary'
-                                            onClick={ () => {} }
+                                            onClick={ () => acceptEventHandler(request._id) }
                                         >
                                             Accept
                                         </Button>
                                         <Button
                                             color='danger'
-                                            onClick={ () => {} }
+                                            onClick={ () => rejectEventHandler(request._id) }
                                         >
                                             Reject
                                         </Button>
@@ -132,6 +177,12 @@ export default function Dashboard ({ history }) {
                     })
                 }
             </ul>
+            {success && requestMessageHandler !== '' ? (
+                <Alert className='event-validation' color='success'>{ requestMessageHandler }</Alert>
+            ) : '' }
+            {error && requestMessageHandler !== '' ? (
+                <Alert className='event-validation' color="danger">{ requestMessageHandler }</Alert>
+            ): '' }
             <div className="filter-panel">
                 <Dropdown isOpen={ dropdownOpen } toggle={ toggle }>
                     <DropdownToggle color='primary' caret>
@@ -179,10 +230,10 @@ export default function Dashboard ({ history }) {
                     ))
                 }
             </ul>
-            { success ? (
+            { success && messageHandler !== '' ? (
                 <Alert className="event-validation" color="success">{ messageHandler }</Alert>
             ) : '' }
-            { error ? (
+            { error && messageHandler !== '' ? (
                 <Alert className="event-validation" color="danger">{ messageHandler }</Alert>
             ) : '' }
         </>
