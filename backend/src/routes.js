@@ -35,6 +35,7 @@ routes.post('/login', LoginController.store);
 //Registration
 routes.post('/registration/:eventId', verifyToken, RegistrationController.create);
 routes.get('/registration/:registrationId', RegistrationController.getRegistration);
+routes.get('/registrations', verifyToken, RegistrationController.getRegistrationsByUser);
 
 //Approvals
 routes.post('/registration/:registrationId/approval', verifyToken, ApprovalController.approval);

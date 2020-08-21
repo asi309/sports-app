@@ -20,6 +20,13 @@ module.exports = {
                     .populate('user', '-password')
                     .populate('event')
                     .execPopulate();
+
+                registration.owner = registration.event.user;
+                registration.eventTitle = registration.event.title;
+                registration.eventPrice = registration.event.price;
+                registration.eventDate = registration.event.date;
+                registration.userEmail = registration.user.email;
+                registration.save();
                     
                 const ownerSocket = req.connectedUsers[registration.event.user];
 
@@ -48,5 +55,26 @@ module.exports = {
                 message: 'Registration not found'
             })
         }
+    },
+
+    getRegistrationsByUser (req, res) {
+        jwt.verify(req.token, 'secret', async (error, authData) => {
+            if (error) {
+                return res.status(401).send();
+            } else {
+
+                try {
+                    const registrationArray = await Registration.find({ 'owner': authData.user._id })
+
+                    if (registrationArray) {
+                        return res.json(registrationArray);
+                    }
+                } catch (error) {
+                    return res.status(400).json({
+                        message: 'Registrations not found'
+                    })
+                }
+            }
+        })
     }
 }

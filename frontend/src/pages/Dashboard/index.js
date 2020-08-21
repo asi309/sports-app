@@ -102,7 +102,7 @@ export default function Dashboard ({ history }) {
 
     const acceptEventHandler = async (registrationId) => {
         try{
-            const response = await api.post(`/registration/${registrationId}/approval`, {}, { headers: { user } });
+            await api.post(`/registration/${registrationId}/approval`, {}, { headers: { user } });
             setSuccess(true);
             setRequestMessageHandler('Request Accepted');
             removeNotification(registrationId);

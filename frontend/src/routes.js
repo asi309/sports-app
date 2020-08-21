@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard/';
 import Events from './pages/Events/';
 import Login from './pages/Login/';
 import RegisterUser from './pages/RegisterUser/';
+import MyRegistrations from './pages/MyRegistrations/';
 import TopNav from './components/TopNav';
 
 
@@ -17,6 +18,7 @@ export default function Routes () {
                 <Route path="/login" component={ Login } />
                 <Route path="/events" component={ Events } />
                 <Route path="/user/register" component={ RegisterUser } />
+                <Route path="/myregistrations/" component={ MyRegistrations } />
             </Switch>
         </BrowserRouter>
     );
