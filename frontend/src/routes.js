@@ -7,6 +7,7 @@ import Login from './pages/Login/';
 import RegisterUser from './pages/RegisterUser/';
 import MyRegistrations from './pages/MyRegistrations/';
 import TopNav from './components/TopNav';
+import RegistrationRequests from './pages/RegistrationRequests/';
 
 
 export default function Routes () {
@@ -19,6 +20,7 @@ export default function Routes () {
                 <Route path="/events" component={ Events } />
                 <Route path="/user/register" component={ RegisterUser } />
                 <Route path="/myregistrations/" component={ MyRegistrations } />
+                <Route path="/registrations/requests" component={ RegistrationRequests } />
             </Switch>
         </BrowserRouter>
     );
