@@ -81,38 +81,38 @@ export default function RegistrationRequests () {
 
     return (
         <ul className='registrations'>
-            {registrations.map(registration => (
+            {registrations.length === 0 ? <h2>No Pending Requests</h2> : ''}
+            {
+                registrations.map(registration => (
                 <li key={ registration._id }>
-                    <div>
-                        <div className="title">{registration.eventTitle}</div>
-                        <div className='event-details'>
-                            <span>Date: {moment(registration.eventDate).format('l')}</span>
-                            <span>Price: ${parseFloat(registration.eventPrice).toFixed(2)}</span>
-                            <span>Email: {registration.userEmail}</span>
-                        </div>
-                        <ButtonGroup>
-                            <Button
-                                color='secondary'
-                                onClick={ () => acceptEventHandler(registration._id) }
-                            >
-                                Accept
-                            </Button>
-                            <Button
-                                color='danger'
-                                onClick={ () => rejectEventHandler(registration._id) }
-                            >
-                                Reject
-                            </Button>
-                        </ButtonGroup>
+                    <div className="title">{registration.eventTitle}</div>
+                    <div className='event-details'>
+                        <span>Date: {moment(registration.eventDate).format('l')}</span>
+                        <span>Price: ${parseFloat(registration.eventPrice).toFixed(2)}</span>
+                        <span>Email: {registration.userEmail}</span>
                     </div>
-                    {
-                        success ? <Alert color={ registrationState }>{ requestMessageHandler }</Alert> : ''
-                    }
-                    {
-                        error ? <Alert color='danger'>{ requestMessageHandler }</Alert> : ''
-                    }
+                    <ButtonGroup>
+                        <Button
+                            color='secondary'
+                            onClick={ () => acceptEventHandler(registration._id) }
+                        >
+                            Accept
+                        </Button>
+                        <Button
+                            color='danger'
+                            onClick={ () => rejectEventHandler(registration._id) }
+                        >
+                            Reject
+                        </Button>
+                    </ButtonGroup>
                 </li>
             ))}
+            {
+                success ? <Alert color={ registrationState }>{ requestMessageHandler }</Alert> : ''
+            }
+            {
+                error ? <Alert color='danger'>{ requestMessageHandler }</Alert> : ''
+            }
         </ul>
     )
 }

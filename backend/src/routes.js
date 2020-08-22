@@ -8,11 +8,12 @@ const LoginController = require('./controllers/LoginController');
 const RegistrationController = require('./controllers/RegistrationController');
 const RejectionController = require('./controllers/RejectionController');
 const UserController = require('./controllers/UserController');
-const uploadConfig = require('./config/upload');
+// const uploadConfig = require('./config/upload');
+const s3Upload = require('./config/s3Uploads');
 const verifyToken = require('./config/verifyToken');
 
 const routes = express.Router();
-const upload = multer(uploadConfig);
+// const upload = multer(uploadConfig);
 
 
 routes.get('/', (request, response) => {
@@ -26,7 +27,7 @@ routes.get('/user/events', verifyToken, DashboardController.getEventsByUser);
 routes.get('/event/:eventId', verifyToken, DashboardController.getEventById);
 
 //Events
-routes.post('/event', verifyToken, upload.single("thumbnail"), EventController.createEvent);
+routes.post('/event', verifyToken, s3Upload.single("thumbnail"), EventController.createEvent);
 routes.delete('/event/:eventId', verifyToken, EventController.deleteEvent);
 
 //Login

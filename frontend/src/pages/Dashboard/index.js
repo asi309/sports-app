@@ -28,7 +28,7 @@ export default function Dashboard ({ history }) {
 
 
     const socket = useMemo(() => (
-            socketio('http://localhost:8000', { query: { user: userId } })
+            socketio('https://sports-events-app.herokuapp.com/', { query: { user: userId } })
             ), [userId]);
 
 

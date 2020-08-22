@@ -9,7 +9,8 @@ module.exports = {
                 res.status(401).send();
             } else {
                 const { title, description, price, sport, date } = req.body;
-                const { filename } = req.file;
+                // const { filename } = req.file;
+                const { location } = req.file;
                 const { user } = authData;
                 
                 const existing_user = await User.findById(user._id);
@@ -20,11 +21,21 @@ module.exports = {
                     });
                 }
         
+                // const event = await Event.create({
+                //     title,
+                //     description,
+                //     price,
+                //     thumbnail: filename,
+                //     sport,
+                //     date,
+                //     user: user._id
+                // })
+
                 const event = await Event.create({
                     title,
                     description,
                     price,
-                    thumbnail: filename,
+                    thumbnail: location,
                     sport,
                     date,
                     user: user._id
